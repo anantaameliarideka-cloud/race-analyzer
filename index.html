@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏍️Race Strategy Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- NAVBAR -->
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <a href="#" class="brand-logo" onclick="return false">🏍️ Race Strategy</a>
+            </div>
+            <div class="navbar-menu">
+                <a href="#" class="nav-link active" data-page="home" onclick="return false">🏠 Home</a>
+                <a href="#" class="nav-link" data-page="profile" onclick="return false">👤 Profile</a>
+                <a href="#" class="nav-link" data-page="circuit" onclick="return false">🏁 Circuit</a>
+                <a href="#" class="nav-link" data-page="config" onclick="return false">⚙️ Config</a>
+                <a href="#" class="nav-link" data-page="results" onclick="return false">📊 Results</a>
+                <a href="#" class="nav-link" data-page="analysis" onclick="return false">📈 Analysis</a>
+                <a href="#" class="nav-link" data-page="leaderboard" onclick="return false">🏆 Leaderboard</a>
+            </div>
+            <div class="navbar-user">
+                <span id="userDisplay">Guest</span>
+                <button id="resetBtn" class="btn-reset">Reset</button>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <!-- PAGE 1: HOME -->
+            <div id="homePage" class="page active">
+                <div class="page-container">
+                    <h1>Welcome to Race Strategy Analyzer</h1>
+                    <p class="page-subtitle">Analisis strategi race dengan data real circuit</p>
+                    
+                    <div class="profile-form-section">
+                        <h2>Tentukan Profile Anda</h2>
+                        
+                        <form id="profileForm">
+                            <div class="form-group">
+                                <label for="riderName">Nama Pembalap:</label>
+                                <input type="text" id="riderName" placeholder="Masukkan nama Anda" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="skillLevel">Skill Level Berkendara:</label>
+                                <select id="skillLevel" required>
+                                    <option value="">-- Pilih Skill --</option>
+                                    <option value="beginner">🟢 Beginner (Learning)</option>
+                                    <option value="intermediate">🟡 Intermediate (Experienced)</option>
+                                    <option value="expert">🔴 Expert (Pro)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="motorType">Tipe Motor:</label>
+                                <select id="motorType" required>
+                                    <option value="">-- Pilih Motor --</option>
+                                    <option value="sport">🏍️ Sport Bike (250cc)</option>
+                                    <option value="supersport">🏍️ Supersport (600cc)</option>
+                                    <option value="superbike">🏍️ Superbike (1000cc)</option>
+                                    <option value="motogp">🏍️ MotoGP Prototype</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-large">
+                                ▶️ Mulai Analisis
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 2: PROFILE -->
+            <div id="profilePage" class="page">
+                <div class="page-container">
+                    <h1>👤 Your Profile</h1>
+                    <p class="page-subtitle">Profil pembalap Anda</p>
+                    
+                    <div class="profile-display">
+                        <div class="profile-card">
+                            <div class="profile-item">
+                                <span class="profile-label">Nama Pembalap:</span>
+                                <span class="profile-value" id="displayName">-</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Skill Level:</span>
+                                <span class="profile-value" id="displaySkill">-</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Tipe Motor:</span>
+                                <span class="profile-value" id="displayMotor">-</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Total Races:</span>
+                                <span class="profile-value" id="displayRaces">0</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Best Time:</span>
+                                <span class="profile-value" id="displayBestTime">-</span>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-secondary" id="editProfileBtn">✏️ Edit Profile</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 3: CIRCUIT -->
+            <div id="circuitPage" class="page">
+                <div class="page-container">
+                    <h1>🏁 Pilih Sirkuit</h1>
+                    <p class="page-subtitle">Pilih sirkuit untuk analisis strategi race</p>
+                    
+                    <div class="circuit-cards">
+                        <div class="circuit-card" data-circuit="mandalika">
+                            <div class="circuit-card-header">
+                                <h3>Mandalika 🇮🇩</h3>
+                                <p class="circuit-country">Indonesia</p>
+                            </div>
+                            <div class="circuit-card-info">
+                                <div class="circuit-stat">
+                                    <span class="stat-label">Panjang:</span>
+                                    <span class="stat-value">4.3 km</span>
+                                </div>
+                                <div class="circuit-stat">
+                                    <span class="stat-label">Tikungan:</span>
+                                    <span class="stat-value">17</span>
+                                </div>
+                                <div class="circuit-stat">
+                                    <span class="stat-label">Kesulitan:</span>
+                                    <span class="stat-value">Medium-High</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary">Pilih</button>
+                        </div>
+
+                        <div class="circuit-card" data-circuit="sepang">
+                            <div class="circuit-card-header">
+                                <h3>Sepang 🇲🇾</h3>
+                                <p class="circuit-country">Malaysia</p>
+                            </div>
+                            <div class="circuit-card-info">
+                                <div class="circuit-stat">
+                                    <span class="stat-label">Panjang:</span>
+                                    <span class="stat-value">5.543 km</span>
+                                </div>
+                                <div class="circuit-stat">
+                                    <span class="stat-label">Tikungan:</span>
+                                    <span class="stat-value">15</span>
+                                </div>
+                                <div class="circuit-stat">
+                                    <span class="stat-label">Kesulitan:</span>
+                                    <span class="stat-value">Medium</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary">Pilih</button>
+                        </div>
+
+                        <div class="circuit-card" data-circuit="silverstone">
+                            <div class="circuit-card-header">
+                                <h3>Silverstone 🇬🇧</h3>
+                                <p class="circuit-country">United Kingdom</p>
+                            </div>
+                            <div class="circuit-card-info">
+                                <div class="circuit-stat">
+                                    <span class="stat-label">Panjang:</span>
+                                    <span class="stat-value">5.9 km</span>
+                                </div>
+                                <div class="circuit-stat">
+                                    <span class="stat-label">Tikungan:</span>
+                                    <span class="stat-value">18</span>
+                                </div>
+                                <div class="circuit-stat">
+                                    <span class="stat-label">Kesulitan:</span>
+                                    <span class="stat-value">Medium</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary">Pilih</button>
+                        </div>
+                    </div>
+
+                    <div id="circuitDisplay" class="circuit-display" style="display:none;">
+                        <h2 id="selectedCircuitName">-</h2>
+                        <div class="circuit-content">
+                            <div class="circuit-graphics">
+                                <svg id="trackSvg" width="100%" height="400" viewBox="0 0 500 400" class="track-svg"></svg>
+                            </div>
+                            <div class="circuit-details">
+                                <h3>Circuit Details</h3>
+                                <div id="circuitDetailsList"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 4: CONFIG -->
+            <div id="configPage" class="page">
+                <div class="page-container">
+                    <h1>⚙️ Race Configuration</h1>
+                    <p class="page-subtitle">Atur parameter race Anda</p>
+                    
+                    <div class="config-form">
+                        <div class="form-section">
+                            <h3>Sirkuit Terpilih</h3>
+                            <div class="current-circuit">
+                                <span id="currentCircuitName">-</span>
+                                <span id="currentCircuitDistance">-</span>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>🏍️ Jumlah Lap</h3>
+                            <div class="lap-controls">
+                                <button type="button" class="spin-btn" id="decrementLap">−</button>
+                                <input type="number" id="configLaps" min="1" max="100" value="25">
+                                <button type="button" class="spin-btn" id="incrementLap">+</button>
+                            </div>
+                            <input type="range" id="lapsSlider" min="1" max="100" value="25" class="slider">
+                            <small>Total Distance: <strong id="totalDistancePreview">-</strong></small>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>💨 Kecepatan Target</h3>
+                            <div class="speed-display">
+                                <span id="speedValueDisplay">190</span> km/h
+                                <span class="level-badge" id="speedLevelBadge">🟡 Intermediate</span>
+                            </div>
+                            <input type="range" id="configSpeed" min="160" max="220" value="190" class="slider">
+                            <div class="speed-range-info">
+                                <span>160 km/h</span>
+                                <span>220 km/h</span>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>🌦️ Kondisi Cuaca</h3>
+                            <div class="weather-options">
+                                <label class="radio-option">
+                                    <input type="radio" name="weather" value="dry" checked>
+                                    <span>☀️ Dry (Grip Normal)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="weather" value="wet">
+                                    <span>🌧️ Wet (Reduced Grip)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="weather" value="rain">
+                                    <span>⛈️ Heavy Rain (Max Caution)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-secondary" id="backToCircuitBtn">← Kembali</button>
+                            <button type="button" class="btn btn-primary btn-large" id="analyzeBtn">🔍 Analisis</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 5: RESULTS -->
+            <div id="resultsPage" class="page">
+                <div class="page-container">
+                    <h1>📊 Race Analysis Results</h1>
+                    
+                    <div class="results-grid">
+                        <div class="results-card">
+                            <h3>Quick Stats</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <span class="stat-name">Panjang Lintasan</span>
+                                    <span class="stat-value" id="resultLapLength">-</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-name">Total Distance</span>
+                                    <span class="stat-value" id="resultTotalDistance">-</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-name">Kesulitan</span>
+                                    <span class="stat-value" id="resultDifficulty">-</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-name">Tikungan</span>
+                                    <span class="stat-value" id="resultTurns">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="results-card">
+                            <h3>⚡ Rekomendasi Kecepatan</h3>
+                            <div class="speed-recommendations">
+                                <div class="speed-rec-item">
+                                    <span class="rec-label">Target:</span>
+                                    <span class="rec-value" id="recSpeed">-</span>
+                                </div>
+                                <div class="speed-rec-item">
+                                    <span class="rec-label">Min:</span>
+                                    <span class="rec-value" id="recMinSpeed">-</span>
+                                </div>
+                                <div class="speed-rec-item">
+                                    <span class="rec-label">Max:</span>
+                                    <span class="rec-value" id="recMaxSpeed">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="results-card">
+                            <h3>⏱️ Estimasi Waktu</h3>
+                            <div class="time-estimation">
+                                <div class="time-item">
+                                    <span class="time-label">Per Lap:</span>
+                                    <span class="time-value" id="timePerLap">-</span>
+                                </div>
+                                <div class="time-item">
+                                    <span class="time-label">Total:</span>
+                                    <span class="time-value" id="timeTotal">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="results-card full-width">
+                            <h3>🏁 Track Preview</h3>
+                            <svg id="trackPreviewSvg" width="100%" height="300" viewBox="0 0 500 400" class="track-svg"></svg>
+                        </div>
+                    </div>
+
+                    <div class="results-navigation">
+                        <button type="button" class="btn btn-secondary" id="backToConfigBtn">← Ubah Config</button>
+                        <button type="button" class="btn btn-primary" id="toAnalysisBtn">Lihat Detail Analisis →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 6: ANALYSIS -->
+            <div id="analysisPage" class="page">
+                <div class="page-container">
+                    <h1>📈 Detailed Analysis</h1>
+                    
+                    <div class="analysis-tabs">
+                        <button class="analysis-tab active" data-tab="weather">🌦️ Weather</button>
+                        <button class="analysis-tab" data-tab="danger">⚠️ Danger</button>
+                        <button class="analysis-tab" data-tab="tire">🛞 Tire</button>
+                        <button class="analysis-tab" data-tab="speed">⚡ Speed</button>
+                        <button class="analysis-tab" data-tab="data">📋 Data</button>
+                        <button class="analysis-tab" data-tab="heatmap">🔥 Heatmap</button>
+                    </div>
+
+                    <div class="analysis-content">
+                        <div class="analysis-section active" id="weatherTab">
+                            <h3>Weather Impact</h3>
+                            <div id="weatherContent"></div>
+                        </div>
+                        <div class="analysis-section" id="dangerTab">
+                            <h3>Danger Zones</h3>
+                            <div id="dangerContent"></div>
+                        </div>
+                        <div class="analysis-section" id="tireTab">
+                            <h3>Tire Strategy</h3>
+                            <div id="tireContent"></div>
+                        </div>
+                        <div class="analysis-section" id="speedTab">
+                            <h3>Speed Profile</h3>
+                            <canvas id="speedChart" width="600" height="300"></canvas>
+                        </div>
+                        <div class="analysis-section" id="dataTab">
+                            <h3>Data Table</h3>
+                            <table id="raceDataTable" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Lap</th>
+                                        <th>Distance</th>
+                                        <th>Speed</th>
+                                        <th>Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <div class="analysis-section" id="heatmapTab">
+                            <h3>Heatmap</h3>
+                            <svg id="heatmapSvg" width="100%" height="400" viewBox="0 0 500 400" class="track-svg"></svg>
+                        </div>
+                    </div>
+
+                    <div class="export-section">
+                        <button type="button" class="btn btn-success btn-large" id="exportPdfBtn">
+                            📥 Export Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 7: LEADERBOARD -->
+            <div id="leaderboardPage" class="page">
+                <div class="page-container">
+                    <h1>🏆 Leaderboard</h1>
+                    <p class="page-subtitle">Top performers</p>
+                    
+                    <div class="leaderboard-filters">
+                        <button class="filter-btn active" data-circuit="all">All</button>
+                        <button class="filter-btn" data-circuit="mandalika">Mandalika</button>
+                        <button class="filter-btn" data-circuit="sepang">Sepang</button>
+                        <button class="filter-btn" data-circuit="silverstone">Silverstone</button>
+                    </div>
+
+                    <table id="leaderboardTable" class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Pembalap</th>
+                                <th>Skill</th>
+                                <th>Motor</th>
+                                <th>Sirkuit</th>
+                                <th>Best Time</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="circuits-data.js"></script>
+    <script src="script.js"></script>
+
+    <!-- FOOTER WATERMARK -->
+        <footer class="app-footer">
+            <p>&copy; 2026 OBE Kalkulus Integral</p>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="circuits-data.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
